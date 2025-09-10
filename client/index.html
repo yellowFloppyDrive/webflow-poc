@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>iframe demo</title>
+</head>
+
+<body>
+  <iframe src="/iframe/index.html"></iframe>
+
+  <script>
+    {
+      const iframe = window.document.querySelector("iframe");
+
+      if (iframe instanceof HTMLIFrameElement) {
+        const listen = () => iframe.contentWindow.document.addEventListener("count_updated", (e) => console.log(e.detail));
+
+        if (iframe instanceof HTMLIFrameElement) {
+          if (iframe.contentWindow.document.readyState === "complete") {
+            listen();
+          } else {
+            iframe.contentWindow.addEventListener("DOMContentLoaded", () => {
+              listen();
+            });
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
